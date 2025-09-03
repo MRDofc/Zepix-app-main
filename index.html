@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zepix</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .site-name {
+            font-size: 3em;
+            position: relative;
+            display: inline-block;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+            }
+            to {
+                text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+            }
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #333; /* Placeholder for image */
+            margin-bottom: 40px;
+            /* Replace with actual image: background-image: url('your-logo-url.jpg'); background-size: cover; */
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button {
+            padding: 15px 30px;
+            margin: 10px 0;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        #aviator-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff); /* Anime-style vibrant colors */
+            color: black;
+        }
+
+        #instructions-btn {
+            background: linear-gradient(45deg, #00ff00, #ffff00);
+            color: black;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .icon-button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: pulse 1.5s infinite;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: black;
+        }
+
+        .icon-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        #whatsapp-btn {
+            background: linear-gradient(45deg, #25D366, #00ff00); /* WhatsApp green gradient */
+        }
+
+        #youtube-btn {
+            background: linear-gradient(45deg, #FF0000, #ff6666); /* YouTube red gradient */
+        }
+
+        .icon-img {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="site-name">Zepix</h1>
+    </div>
+    <div class="logo">
+        <!-- Add your logo image here: <img src="https://files.catbox.moe/h7g8sj.jpg" alt="Logo" style="width:100%; height:100%; border-radius:50%;"> -->
+    </div>
+    <div class="buttons">
+        <a href="https://aviator-signal-zepix.vercel.app/" class="button" id="aviator-btn">AVIATOR SIGNAL</a>
+        <a href="https://aviator-2.vercel.app/" class="button" id="instructions-btn">උපදෙස්</a>
+    </div>
+    <div class="footer">
+        <a href="https://wa.me/your-whatsapp-number" class="icon-button" id="whatsapp-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon-img"> WhatsApp
+        </a>
+        <a href="https://www.youtube.com/your-channel" class="icon-button" id="youtube-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube" class="icon-img"> YouTube
+        </a>
+    </div>
+</body>
+</html>
