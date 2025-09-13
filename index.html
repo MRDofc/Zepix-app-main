@@ -109,9 +109,9 @@
         }
 
         .button {
-            padding: 10px 20px; /* බොත්තම් කුඩා කිරීමට වෙනස් කරන ලදි */
-            margin: 8px 0;    /* බොත්තම් අතර දුර අඩු කිරීමට වෙනස් කරන ලදි */
-            font-size: 1.2em;  /* අකුරු ප්‍රමාණය කුඩා කිරීමට වෙනස් කරන ලදි */
+            padding: 8px 16px;  /* බොත්තම් තවත් කුඩා කිරීමට වෙනස් කරන ලදි */
+            margin: 6px 0;      /* බොත්තම් අතර දුර තවත් අඩු කිරීමට වෙනස් කරන ලදි */
+            font-size: 1em;     /* අකුරු ප්‍රමාණය තවත් කුඩා කිරීමට වෙනස් කරන ලදි */
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -134,9 +134,9 @@
         }
         
         /* නව බොත්තම් සඳහා styles */
-        #bet-practice-btn {
-            background: linear-gradient(45deg, #ff8c00, #ff4500);
-            color: black;
+        .bet-practice-text {
+            font-size: 1.2em; /* පෙළ සඳහා අකුරු ප්‍රමාණය */
+            margin: 10px 0; /* පෙළට ඉහළින් සහ පහළින් ඉඩ */
         }
 
         #test-annalyz-btn {
@@ -205,7 +205,7 @@
     <div class="buttons">
         <a href="https://aviator-signal-zepix.vercel.app/" class="button" id="aviator-btn">AVIATOR SIGNAL</a>
         <a href="https://aviator-2.vercel.app/" class="button" id="instructions-btn">උපදෙස්</a>
-        <a href="#" class="button" id="bet-practice-btn">Bet කරන්න පුරුදු වෙමු</a>
+        <p class="bet-practice-text">Bet කරන්න පුරුදු වෙමු</p>
         <a href="https://zepixaviatorplay.edgeone.app/" class="button" id="test-annalyz-btn">TEST ANNALYZ</a>
     </div>
 
@@ -257,4 +257,4 @@
         });
     </script>
 </body>
-            </html>
+        </html>
