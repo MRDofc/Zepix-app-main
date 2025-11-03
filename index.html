@@ -100,29 +100,33 @@
         .hidden {
             display: none;
         }
-
+        
+        /* නවතම Buttons Container Styles (Grid) */
         .buttons {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* එක් පේළියක බොත්තම් දෙකක් */
+            gap: 10px; /* බොත්තම් අතර පරතරය */
+            width: 90%; /* තිරයේ පළලින් 90%ක් ගන්න */
+            max-width: 400px; /* උපරිම පළලක් */
+            margin: 0 auto;
         }
 
         .button {
-            padding: 8px 16px;
-            margin: 6px 0;
-            font-size: 1em;
+            padding: 10px 15px; /* Padding වැඩි කිරීම */
+            margin: 0; /* Margin ඉවත් කිරීම */
+            font-size: 0.9em; /* අකුරු ප්‍රමාණය අඩු කිරීම */
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none; /* Link එකක් බැවින් යටින් ඉර ඉවත් කිරීම */
+            text-decoration: none;
             text-align: center;
+            white-space: nowrap; /* වචන කැඩීම වැළැක්වීම */
         }
 
         .button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transform: scale(1.05); /* Zoom ප්‍රමාණය අඩු කිරීම */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
 
         /* බොත්තම් වලට අදාළ Styles */
@@ -131,12 +135,12 @@
             color: black;
         }
         
-        #ai-bot-btn { /* නව AI Bot බොත්තම */
+        #ai-bot-btn {
             background: linear-gradient(45deg, #FF69B4, #BA55D3); 
             color: black;
         }
 
-        #img-to-text-btn { /* නව Image to Text බොත්තම */
+        #img-to-text-btn {
             background: linear-gradient(45deg, #FFA500, #FFD700);
             color: black;
         }
@@ -147,10 +151,13 @@
         }
 
         .bet-practice-text {
+            /* මෙම Text එක Grid එකෙන් පිටත තනිව තැබීමට */
+            grid-column: 1 / span 2; 
             font-size: 1.2em;
             margin: 10px 0;
             font-weight: bold;
             color: #ccc;
+            text-align: center;
         }
 
         #test-annalyz-btn {
@@ -161,6 +168,14 @@
         #time-table-btn {
             background: linear-gradient(45deg, #ff8c00, #ff4500);
             color: black;
+        }
+        
+        /* Bet practice text එකට තනි පේලියක් අවශ්‍ය බැවින්, එය වෙනම div එකක තබමු */
+        .single-row-text {
+            width: 90%;
+            max-width: 400px;
+            margin: 10px auto;
+            text-align: center;
         }
 
         .footer {
@@ -221,7 +236,7 @@
             </svg>
         </button>
     </div>
-
+    
     <div class="buttons">
         <a href="https://aviator-ai-bot-uqq9.vercel.app/" class="button" id="ai-bot-btn">AVIATOR AI BOT</a>
         <a href="https://haai-greeting-hub.lovable.app/?utm_source=lovable-editor" class="button" id="img-to-text-btn">IMG TO TEXT</a>
@@ -229,10 +244,12 @@
         <a href="https://aviator-signal-zepix.vercel.app/" class="button" id="aviator-btn">AVIATOR SIGNAL</a>
         <a href="https://aviator-2.vercel.app/" class="button" id="instructions-btn">උපදෙස්</a>
         
-        <p class="bet-practice-text">Bet කරන්න පුරුදු වෙමු</p>
-        
         <a href="https://aviator-annlyse.vercel.app/" class="button" id="test-annalyz-btn">CLICK ME (Test Analyze)</a>
         <a href="https://aviator-time-table.vercel.app/" class="button" id="time-table-btn">YOUR TIME TABLE</a>
+    </div>
+
+    <div class="single-row-text">
+        <p class="bet-practice-text">Bet කරන්න පුරුදු වෙමු</p>
     </div>
 
     <div class="footer">
@@ -256,6 +273,7 @@
             if (playButton && audio && playIcon && pauseIcon) {
                 playButton.addEventListener('click', () => {
                     if (audio.paused) {
+                        // Play audio only on user interaction to avoid auto-play policy issues
                         audio.play()
                             .then(() => {
                                 console.log('Audio is playing');
@@ -263,7 +281,7 @@
                                 pauseIcon.classList.remove('hidden');
                             })
                             .catch(error => {
-                                console.error('Failed to play audio:', error);
+                                console.error('Failed to play audio (User interaction required):', error);
                             });
                     } else {
                         audio.pause();
