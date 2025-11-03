@@ -116,6 +116,8 @@
             border-radius: 50px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none; /* Link එකක් බැවින් යටින් ඉර ඉවත් කිරීම */
+            text-align: center;
         }
 
         .button:hover {
@@ -123,8 +125,19 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
+        /* බොත්තම් වලට අදාළ Styles */
         #aviator-btn {
             background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: black;
+        }
+        
+        #ai-bot-btn { /* නව AI Bot බොත්තම */
+            background: linear-gradient(45deg, #FF69B4, #BA55D3); 
+            color: black;
+        }
+
+        #img-to-text-btn { /* නව Image to Text බොත්තම */
+            background: linear-gradient(45deg, #FFA500, #FFD700);
             color: black;
         }
 
@@ -132,11 +145,12 @@
             background: linear-gradient(45deg, #00ff00, #ffff00);
             color: black;
         }
-        
-        /* නව බොත්තම් සඳහා styles */
+
         .bet-practice-text {
             font-size: 1.2em;
             margin: 10px 0;
+            font-weight: bold;
+            color: #ccc;
         }
 
         #test-annalyz-btn {
@@ -167,6 +181,7 @@
             align-items: center;
             gap: 8px;
             color: black;
+            text-decoration: none;
         }
 
         .icon-button:hover {
@@ -208,10 +223,15 @@
     </div>
 
     <div class="buttons">
+        <a href="https://aviator-ai-bot-uqq9.vercel.app/" class="button" id="ai-bot-btn">AVIATOR AI BOT</a>
+        <a href="https://haai-greeting-hub.lovable.app/?utm_source=lovable-editor" class="button" id="img-to-text-btn">IMG TO TEXT</a>
+        
         <a href="https://aviator-signal-zepix.vercel.app/" class="button" id="aviator-btn">AVIATOR SIGNAL</a>
         <a href="https://aviator-2.vercel.app/" class="button" id="instructions-btn">උපදෙස්</a>
+        
         <p class="bet-practice-text">Bet කරන්න පුරුදු වෙමු</p>
-        <a href="https://aviator-annlyse.vercel.app/" class="button" id="test-annalyz-btn">CLICK ME</a>
+        
+        <a href="https://aviator-annlyse.vercel.app/" class="button" id="test-annalyz-btn">CLICK ME (Test Analyze)</a>
         <a href="https://aviator-time-table.vercel.app/" class="button" id="time-table-btn">YOUR TIME TABLE</a>
     </div>
 
