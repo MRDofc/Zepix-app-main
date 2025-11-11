@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zepix - වැඩිදියුණු කළ</title>
+    <title>Zepix - Mobile Optimized</title>
     <style>
-        /* ------------------- Global Styles ------------------- */
+        /* ------------------- Global and Reset ------------------- */
         body {
-            background-color: black;
-            color: white;
+            background-color: #0d0d0d; /* තද අළු කළු */
+            color: #f0f0f0;
             font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Scroll වීම වැළැක්වීමට */
             min-height: 100vh;
             margin: 0;
-            overflow-x: hidden; 
+            overflow-x: hidden;
             position: relative;
         }
 
-        /* ------------------- Background Animation ------------------- */
-        /* මෙය මුළු පිටුවම වසාගෙන neon effect එක ලබා දෙයි */
-        body::before {
+        /* ------------------- Background Animation (Particle/Matrix Effect) ------------------- */
+        body::after {
             content: '';
             position: fixed;
             top: 0;
@@ -30,304 +28,235 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            /* Gradient එක චලනය කිරීමෙන් animation effect එක ලැබේ */
-            background: linear-gradient(135deg, #0f0, #ff00ff, #00ffff, #fff000);
-            background-size: 400% 400%;
-            animation: neon-bg 15s ease infinite;
-            opacity: 0.15; /* ගොඩක් සැහැල්ලු ලෙස තබා ගැනීමට */
+            /* Radial Gradient එක චලනය කරමින් light effect එක ලබා දෙයි */
+            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, rgba(255, 0, 255, 0.1) 30%, transparent 60%);
+            background-size: 200% 200%;
+            animation: digital-bg 20s linear infinite;
         }
 
-        @keyframes neon-bg {
+        @keyframes digital-bg {
             0% {
-                background-position: 0% 50%;
+                background-position: 0% 0%;
+                transform: scale(1);
             }
             50% {
-                background-position: 100% 50%;
+                background-position: 100% 100%;
+                transform: scale(1.1);
             }
             100% {
-                background-position: 0% 50%;
+                background-position: 0% 0%;
+                transform: scale(1);
             }
         }
-
-        /* ------------------- Header and Logo ------------------- */
+        
+        /* ------------------- Content Container for Centering ------------------- */
+        /* මෙය සියලු අංග මැදට ගෙන ඒමට සහ පළල සීමා කිරීමට උපකාරී වේ */
+        .main-container {
+            width: 95%;
+            max-width: 400px; /* දුරකථන තිරවලට වඩාත් සුදුසු උපරිම පළලක් */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+            padding-bottom: 80px; /* footer එකට ඉඩ තැබීමට */
+        }
+        
+        /* ------------------- Header and Logo Styles ------------------- */
         .header {
-            text-align: center;
             margin-top: 20px;
-            margin-bottom: 20px;
-            /* අනෙක් elements වලට වඩා ඉදිරියෙන් තැබීමට */
-            z-index: 10; 
         }
 
         .site-name {
-            font-size: 3em;
-            position: relative;
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 15px;
-            /* Header එකේ තිබූ glow සහ neon-border animation එක තබා ඇත */
+            font-size: 2.5em; /* කුඩා කළා */
+            padding: 8px 15px; /* කුඩා කළා */
+            /* පෙර තිබූ glow සහ neon-border animation එක තබා ඇත */
             animation: glow 2s ease-in-out infinite alternate, neon-border 1.5s linear infinite;
         }
-
+        
+        /* (පෙර තිබූ @keyframes glow සහ @keyframes neon-border එලෙසම තබා ඇත) */
         @keyframes glow {
             from {
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+                text-shadow: 0 0 8px #fff, 0 0 15px #e60073, 0 0 30px #e60073;
             }
             to {
-                text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+                text-shadow: 0 0 15px #fff, 0 0 25px #ff4da6, 0 0 40px #ff4da6;
             }
         }
         
         @keyframes neon-border {
             0% {
-                box-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0, inset 0 0 5px #0f0, inset 0 0 10px #0f0;
-                border: 2px solid #0f0;
+                box-shadow: 0 0 3px #0f0, 0 0 6px #0f0, inset 0 0 3px #0f0;
+                border: 1px solid #0f0; /* border එක කුඩා කළා */
             }
             50% {
-                box-shadow: 0 0 20px #0f0, 0 0 30px #0f0, 0 0 40px #0f0, inset 0 0 10px #0f0, inset 0 0 20px #0f0;
-                border: 2px solid #0f0;
+                box-shadow: 0 0 15px #0f0, 0 0 25px #0f0, inset 0 0 8px #0f0;
+                border: 1px solid #0f0;
             }
             100% {
-                box-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0, inset 0 0 5px #0f0, inset 0 0 10px #0f0;
-                border: 2px solid #0f0;
+                box-shadow: 0 0 3px #0f0, 0 0 6px #0f0, inset 0 0 3px #0f0;
+                border: 1px solid #0f0;
             }
         }
 
         .logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            z-index: 10;
+            width: 80px; /* කුඩා කළා */
+            height: 80px; /* කුඩා කළා */
+            margin-bottom: 15px;
         }
 
         /* ------------------- Play Button Styles ------------------- */
         #play-button-container {
-            margin-bottom: 20px;
-            z-index: 10;
+            margin-bottom: 15px;
         }
 
         #play-button {
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            /* සෑම විටම පවතින light effect */
-            box-shadow: 0 0 15px #00ffff, 0 0 25px #ff00ff; 
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 45px;
+            height: 45px;
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
         }
 
         #play-button:hover {
-            transform: scale(1.1);
-            /* hover වලදී light effect වැඩි කිරීම */
-            box-shadow: 0 0 25px #00ffff, 0 0 40px #ff00ff, 0 0 60px rgba(0, 255, 255, 0.7); 
-        }
-        
-        #play-button:active {
-            /* එබූ විට ඇතිවන animation */
-            transform: scale(0.95); 
-            box-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
-        }
-        
-        .play-icon, .pause-icon {
-            width: 20px;
-            height: 20px;
-            fill: black;
-        }
-        
-        .hidden {
-            display: none;
+            box-shadow: 0 0 20px #00ffff, 0 0 35px #ff00ff;
         }
         
         /* ------------------- Main Buttons Container (Grid) ------------------- */
         .buttons {
             display: grid;
             grid-template-columns: 1fr 1fr; 
-            gap: 15px; 
-            width: 90%; 
-            max-width: 450px; /* උපරිම පළල වැඩි කිරීම */
-            margin: 0 auto 20px auto; /* මැදට ගෙන ඒම සහ යටින් ඉඩක් තැබීම */
-            z-index: 10;
+            gap: 10px; /* පරතරය අඩු කළා */
+            width: 100%; 
+            margin-bottom: 15px; 
         }
 
         .button {
-            padding: 15px 15px; /* Padding වැඩි කිරීම */
-            font-size: 1em; 
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-decoration: none;
-            text-align: center;
-            white-space: nowrap; 
-            font-weight: bold;
-            /* සෑම බොත්තමකටම light effect එකක් default ලෙස දෙනවා */
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); 
+            padding: 10px 10px; /* Padding තවත් අඩු කළා (බොත්තම් කුඩා කිරීමට) */
+            font-size: 0.85em; /* අකුරු ප්‍රමාණය කුඩා කළා */
+            border-radius: 40px; /* Border radius කුඩා කළා */
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.4); 
+            transition: transform 0.2s, box-shadow 0.2s; /* Transition speed වැඩි කළා */
         }
 
         .button:hover {
-            transform: scale(1.08); 
-            /* hover වලදී Light effect වැඩි කිරීම */
-            box-shadow: 0 0 10px #fff, 0 0 20px #0ff, 0 0 30px #f0f; 
+            transform: scale(1.05); /* hover zoom අඩු කළා */
+            /* hover වලදී Light effect */
+            box-shadow: 0 0 8px #fff, 0 0 15px #0ff, 0 0 20px #f0f; 
         }
         
         .button:active {
-            /* එබූ විට ඇතිවන animation */
-            transform: scale(0.95); 
-            box-shadow: 0 0 2px #fff;
-        }
-
-        /* ------------------- Individual Button Colors ------------------- */
-        #aviator-btn {
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: black;
+            transform: scale(0.98); 
+            box-shadow: 0 0 1px #fff;
         }
         
-        #ai-bot-btn {
-            background: linear-gradient(45deg, #FF69B4, #BA55D3); 
-            color: black;
-        }
-
-        #img-to-text-btn {
-            background: linear-gradient(45deg, #FFA500, #FFD700);
-            color: black;
-        }
-
-        #instructions-btn {
-            background: linear-gradient(45deg, #00ff00, #ffff00);
-            color: black;
-        }
-
-        #test-annalyz-btn {
-            background: linear-gradient(45deg, #4169e1, #87ceeb);
-            color: black;
-        }
+        /* ------------------- Individual Button Colors (එලෙසම තබා ඇත) ------------------- */
+        #aviator-btn { background: linear-gradient(45deg, #ff00ff, #00ffff); color: black; }
+        #ai-bot-btn { background: linear-gradient(45deg, #FF69B4, #BA55D3); color: black; }
+        #img-to-text-btn { background: linear-gradient(45deg, #FFA500, #FFD700); color: black; }
+        #instructions-btn { background: linear-gradient(45deg, #00ff00, #ffff00); color: black; }
+        #test-annalyz-btn { background: linear-gradient(45deg, #4169e1, #87ceeb); color: black; }
+        #time-table-btn { background: linear-gradient(45deg, #ff8c00, #ff4500); color: black; }
         
-        #time-table-btn {
-            background: linear-gradient(45deg, #ff8c00, #ff4500);
-            color: black;
-        }
-        
-        #zepix-ai-ping-speed-button {
-             background: linear-gradient(45deg, #FF1493, #8A2BE2); /* Deep Pink to Blue Violet */
-             color: black;
-             /* මෙය Grid එකෙන් පිටත ඇති නිසා එහි පෙනුම අනෙක් ඒවාට සමාන කළා */
-             display: block;
-             width: 100%;
-             max-width: 450px;
-             margin: 15px auto;
-        }
-        
-        /* ------------------- Text and Single Row Button Container ------------------- */
-        .single-row-text, .single-row-button-container {
-            width: 90%;
-            max-width: 450px;
-            margin: 10px auto;
-            text-align: center;
-            z-index: 10;
+        /* ------------------- Single Row Items (Text and Zepix Ping Button) ------------------- */
+        .single-row-text {
+            width: 100%;
+            margin: 10px 0;
         }
         
         .bet-practice-text {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #ccc;
+            font-size: 1.1em;
+            color: #aaa;
+        }
+
+        .single-row-button-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        #zepix-ai-ping-speed-button {
+             padding: 12px 10px;
+             font-size: 0.9em;
+             /* මෙය Grid එකෙන් පිටත ඇති නිසා එහි පෙනුම අනෙක් ඒවාට සමාන කළා */
+             display: block;
+             width: 100%;
+             max-width: 100%;
+             background: linear-gradient(45deg, #FF1493, #8A2BE2);
         }
 
         /* ------------------- Footer (Bottom Buttons) Styles ------------------- */
         .footer {
-            /* position: absolute; වෙනුවට relative position භාවිත කළා */
-            /* මෙය අනෙක් elements වලට යටින් තබා, මධ්‍යගත කරයි */
+            /* Fixed position භාවිතයෙන් පහළම මැදට ස්ථිරව තැබීම */
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%); /* මැදට ගෙන ඒම */
+            width: 100%;
             display: flex;
-            gap: 20px;
-            justify-content: center;
-            padding: 20px 0;
-            z-index: 10;
-            margin-top: auto; /* මෙය අනෙක් contents යටින් තැබීමට උපකාරී වේ */
+            justify-content: center; /* බොත්තම් මැදට ගෙන ඒම */
+            gap: 10px;
+            padding: 10px 0;
+            background-color: rgba(0, 0, 0, 0.8); /* Footer එක පිටුපස විනිවිද නොපෙනෙන පසුබිමක් */
+            z-index: 20;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .icon-button {
-            padding: 10px 20px;
-            font-size: 1em;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: black;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* light effect */
+            padding: 8px 15px; /* කුඩා කළා */
+            font-size: 0.9em; /* කුඩා කළා */
+            gap: 5px;
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.4);
         }
 
         .icon-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 10px #fff, 0 0 20px #0ff, 0 0 30px #f0f;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #fff, 0 0 15px #0ff;
         }
         
-        .icon-button:active {
-            transform: scale(0.95);
-            box-shadow: 0 0 2px #fff;
-        }
-
-        #whatsapp-btn {
-            background: linear-gradient(45deg, #25D366, #00ff00);
-        }
-
-        #youtube-btn {
-            background: linear-gradient(45deg, #FF0000, #ff6666);
-        }
-
         .icon-img {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 class="site-name">Zepix</h1>
-    </div>
-    <div class="logo">
-        <img src="https://files.catbox.moe/h7g8sj.jpg" alt="Logo" style="width:100%; height:100%; border-radius:50%;">
-    </div>
+    
+    <div class="main-container">
+        <div class="header">
+            <h1 class="site-name">Zepix</h1>
+        </div>
+        <div class="logo">
+            <img src="https://files.catbox.moe/h7g8sj.jpg" alt="Logo" style="width:100%; height:100%; border-radius:50%;">
+        </div>
 
-    <div id="play-button-container">
-        <button id="play-button" aria-label="Play/Pause audio">
-            <svg id="play-icon" class="play-icon" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-            </svg>
-            <svg id="pause-icon" class="pause-icon hidden" viewBox="0 0 24 24">
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-            </svg>
-        </button>
-    </div>
-    
-    <div class="buttons">
-        <a href="https://aviator-ai-bot-uqq9.vercel.app/" class="button" id="ai-bot-btn">AVIATOR AI BOT</a>
-        <a href="https://888aviator.vercel.app/" class="button" id="img-to-text-btn">888 AVIATOR</a>
+        <div id="play-button-container">
+            <button id="play-button" aria-label="Play/Pause audio">
+                <svg id="play-icon" class="play-icon" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg id="pause-icon" class="pause-icon hidden" viewBox="0 0 24 24">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+            </button>
+        </div>
         
-        <a href="https://aviator-signal-zepix.vercel.app/" class="button" id="aviator-btn">1xbet AVIATOR</a>
-        <a href="https://aviator-2.vercel.app/" class="button" id="instructions-btn">උපදෙස්</a>
-        
-        <a href="https://aviator-annlyse.vercel.app/" class="button" id="test-annalyz-btn">CLICK ME (Test Analyze)</a>
-        <a href="https://aviator-time-table.vercel.app/" class="button" id="time-table-btn">YOUR TIME TABLE</a>
-    </div>
+        <div class="buttons">
+            <a href="https://aviator-ai-bot-uqq9.vercel.app/" class="button" id="ai-bot-btn">AVIATOR AI BOT</a>
+            <a href="https://888aviator.vercel.app/" class="button" id="img-to-text-btn">888 AVIATOR</a>
+            
+            <a href="https://aviator-signal-zepix.vercel.app/" class="button" id="aviator-btn">1xbet AVIATOR</a>
+            <a href="https://aviator-2.vercel.app/" class="button" id="instructions-btn">උපදෙස්</a>
+            
+            <a href="https://aviator-annlyse.vercel.app/" class="button" id="test-annalyz-btn">CLICK ME (Test Analyze)</a>
+            <a href="https://aviator-time-table.vercel.app/" class="button" id="time-table-btn">YOUR TIME TABLE</a>
+        </div>
 
-    <div class="single-row-text">
-        <p class="bet-practice-text">Bet කරන්න පුරුදු වෙමු</p>
-    </div>
-    
-    <div class="single-row-button-container"> 
-        <a href="https://speed-meeter.vercel.app/" class="button" id="zepix-ai-ping-speed-button">Zepix AI PING speed</a>
-    </div>
-    
-    <div class="footer">
+        <div class="single-row-text">
+            <p class="bet-practice-text">Bet කරන්න පුරුදු වෙමු</p>
+        </div>
+        
+        <div class="single-row-button-container"> 
+            <a href="https://speed-meeter.vercel.app/" class="button" id="zepix-ai-ping-speed-button">Zepix AI PING speed</a>
+        </div>
+        
+    </div> <div class="footer">
         <a href="https://wa.me/your-whatsapp-number" class="icon-button" id="whatsapp-btn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon-img"> WhatsApp
         </a>
@@ -345,14 +274,12 @@
             const playIcon = document.getElementById('play-icon');
             const pauseIcon = document.getElementById('pause-icon');
             
-            // Audio Play/Pause Logic
+            // Audio Play/Pause Logic (පෙර තිබූ logic එකම භාවිතා කර ඇත)
             if (playButton && audio && playIcon && pauseIcon) {
                 playButton.addEventListener('click', () => {
                     if (audio.paused) {
-                        // Play audio only on user interaction to avoid auto-play policy issues
                         audio.play()
                             .then(() => {
-                                console.log('Audio is playing');
                                 playIcon.classList.add('hidden');
                                 pauseIcon.classList.remove('hidden');
                             })
@@ -361,7 +288,6 @@
                             });
                     } else {
                         audio.pause();
-                        console.log('Audio is paused');
                         playIcon.classList.remove('hidden');
                         pauseIcon.classList.add('hidden');
                     }
@@ -371,10 +297,8 @@
                     playIcon.classList.remove('hidden');
                     pauseIcon.classList.add('hidden');
                 });
-            } else {
-                console.error('One or more elements not found.');
             }
         });
     </script>
 </body>
-            </html>
+</html>
