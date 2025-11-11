@@ -1,27 +1,61 @@
-t<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zepix</title>
+    <title>Zepix - වැඩිදියුණු කළ</title>
     <style>
+        /* ------------------- Global Styles ------------------- */
         body {
             background-color: black;
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            /* Scroll වීම වැළැක්වීමට */
             min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            overflow-x: hidden; 
+            position: relative;
         }
 
+        /* ------------------- Background Animation ------------------- */
+        /* මෙය මුළු පිටුවම වසාගෙන neon effect එක ලබා දෙයි */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Gradient එක චලනය කිරීමෙන් animation effect එක ලැබේ */
+            background: linear-gradient(135deg, #0f0, #ff00ff, #00ffff, #fff000);
+            background-size: 400% 400%;
+            animation: neon-bg 15s ease infinite;
+            opacity: 0.15; /* ගොඩක් සැහැල්ලු ලෙස තබා ගැනීමට */
+        }
+
+        @keyframes neon-bg {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ------------------- Header and Logo ------------------- */
         .header {
             text-align: center;
             margin-top: 20px;
             margin-bottom: 20px;
+            /* අනෙක් elements වලට වඩා ඉදිරියෙන් තැබීමට */
+            z-index: 10; 
         }
 
         .site-name {
@@ -30,6 +64,7 @@ t<!DOCTYPE html>
             display: inline-block;
             padding: 10px 20px;
             border-radius: 15px;
+            /* Header එකේ තිබූ glow සහ neon-border animation එක තබා ඇත */
             animation: glow 2s ease-in-out infinite alternate, neon-border 1.5s linear infinite;
         }
 
@@ -62,13 +97,13 @@ t<!DOCTYPE html>
             height: 100px;
             border-radius: 50%;
             margin-bottom: 20px;
+            z-index: 10;
         }
 
-        /* Play බොත්තම සඳහා Styles */
+        /* ------------------- Play Button Styles ------------------- */
         #play-button-container {
             margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
+            z-index: 10;
         }
 
         #play-button {
@@ -78,7 +113,8 @@ t<!DOCTYPE html>
             border-radius: 50%;
             border: none;
             cursor: pointer;
-            box-shadow: 0 0 15px #00ffff, 0 0 25px #ff00ff;
+            /* සෑම විටම පවතින light effect */
+            box-shadow: 0 0 15px #00ffff, 0 0 25px #ff00ff; 
             transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             align-items: center;
@@ -87,10 +123,16 @@ t<!DOCTYPE html>
 
         #play-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 20px #00ffff, 0 0 30px #ff00ff;
+            /* hover වලදී light effect වැඩි කිරීම */
+            box-shadow: 0 0 25px #00ffff, 0 0 40px #ff00ff, 0 0 60px rgba(0, 255, 255, 0.7); 
         }
         
-        /* Play/Pause Icon SVG එක සඳහා Styles */
+        #play-button:active {
+            /* එබූ විට ඇතිවන animation */
+            transform: scale(0.95); 
+            box-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
+        }
+        
         .play-icon, .pause-icon {
             width: 20px;
             height: 20px;
@@ -101,35 +143,45 @@ t<!DOCTYPE html>
             display: none;
         }
         
-        /* නවතම Buttons Container Styles (Grid) */
+        /* ------------------- Main Buttons Container (Grid) ------------------- */
         .buttons {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* එක් පේළියක බොත්තම් දෙකක් */
-            gap: 10px; /* බොත්තම් අතර පරතරය */
-            width: 90%; /* තිරයේ පළලින් 90%ක් ගන්න */
-            max-width: 400px; /* උපරිම පළලක් */
-            margin: 0 auto;
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+            width: 90%; 
+            max-width: 450px; /* උපරිම පළල වැඩි කිරීම */
+            margin: 0 auto 20px auto; /* මැදට ගෙන ඒම සහ යටින් ඉඩක් තැබීම */
+            z-index: 10;
         }
 
         .button {
-            padding: 10px 15px; /* Padding වැඩි කිරීම */
-            margin: 0; /* Margin ඉවත් කිරීම */
-            font-size: 0.9em; /* අකුරු ප්‍රමාණය අඩු කිරීම */
+            padding: 15px 15px; /* Padding වැඩි කිරීම */
+            font-size: 1em; 
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
             text-decoration: none;
             text-align: center;
-            white-space: nowrap; /* වචන කැඩීම වැළැක්වීම */
+            white-space: nowrap; 
+            font-weight: bold;
+            /* සෑම බොත්තමකටම light effect එකක් default ලෙස දෙනවා */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); 
         }
 
         .button:hover {
-            transform: scale(1.05); /* Zoom ප්‍රමාණය අඩු කිරීම */
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            transform: scale(1.08); 
+            /* hover වලදී Light effect වැඩි කිරීම */
+            box-shadow: 0 0 10px #fff, 0 0 20px #0ff, 0 0 30px #f0f; 
+        }
+        
+        .button:active {
+            /* එබූ විට ඇතිවන animation */
+            transform: scale(0.95); 
+            box-shadow: 0 0 2px #fff;
         }
 
-        /* බොත්තම් වලට අදාළ Styles */
+        /* ------------------- Individual Button Colors ------------------- */
         #aviator-btn {
             background: linear-gradient(45deg, #ff00ff, #00ffff);
             color: black;
@@ -150,16 +202,6 @@ t<!DOCTYPE html>
             color: black;
         }
 
-        .bet-practice-text {
-            /* මෙම Text එක Grid එකෙන් පිටත තනිව තැබීමට */
-            grid-column: 1 / span 2; 
-            font-size: 1.2em;
-            margin: 10px 0;
-            font-weight: bold;
-            color: #ccc;
-            text-align: center;
-        }
-
         #test-annalyz-btn {
             background: linear-gradient(45deg, #4169e1, #87ceeb);
             color: black;
@@ -170,23 +212,45 @@ t<!DOCTYPE html>
             color: black;
         }
         
-        /* Bet practice text එකට තනි පේලියක් අවශ්‍ය බැවින්, එය වෙනම div එකක තබමු */
-        .single-row-text {
+        #zepix-ai-ping-speed-button {
+             background: linear-gradient(45deg, #FF1493, #8A2BE2); /* Deep Pink to Blue Violet */
+             color: black;
+             /* මෙය Grid එකෙන් පිටත ඇති නිසා එහි පෙනුම අනෙක් ඒවාට සමාන කළා */
+             display: block;
+             width: 100%;
+             max-width: 450px;
+             margin: 15px auto;
+        }
+        
+        /* ------------------- Text and Single Row Button Container ------------------- */
+        .single-row-text, .single-row-button-container {
             width: 90%;
-            max-width: 400px;
+            max-width: 450px;
             margin: 10px auto;
             text-align: center;
+            z-index: 10;
+        }
+        
+        .bet-practice-text {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ccc;
         }
 
+        /* ------------------- Footer (Bottom Buttons) Styles ------------------- */
         .footer {
-            position: absolute;
-            bottom: 20px;
+            /* position: absolute; වෙනුවට relative position භාවිත කළා */
+            /* මෙය අනෙක් elements වලට යටින් තබා, මධ්‍යගත කරයි */
             display: flex;
-            gap: 15px;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px 0;
+            z-index: 10;
+            margin-top: auto; /* මෙය අනෙක් contents යටින් තැබීමට උපකාරී වේ */
         }
 
         .icon-button {
-            padding: 8px 16px;
+            padding: 10px 20px;
             font-size: 1em;
             border: none;
             border-radius: 50px;
@@ -197,11 +261,18 @@ t<!DOCTYPE html>
             gap: 8px;
             color: black;
             text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* light effect */
         }
 
         .icon-button:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 10px #fff, 0 0 20px #0ff, 0 0 30px #f0f;
+        }
+        
+        .icon-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 2px #fff;
         }
 
         #whatsapp-btn {
@@ -250,12 +321,12 @@ t<!DOCTYPE html>
 
     <div class="single-row-text">
         <p class="bet-practice-text">Bet කරන්න පුරුදු වෙමු</p>
-        <div class="container">
-       </div>
-   
-    <div> <button>
-      <a href="https://speed-meeter.vercel.app/" class="button" id="zepix ai ping speed button">Zepix AI PING speed</a>
     </div>
+    
+    <div class="single-row-button-container"> 
+        <a href="https://speed-meeter.vercel.app/" class="button" id="zepix-ai-ping-speed-button">Zepix AI PING speed</a>
+    </div>
+    
     <div class="footer">
         <a href="https://wa.me/your-whatsapp-number" class="icon-button" id="whatsapp-btn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon-img"> WhatsApp
@@ -273,7 +344,8 @@ t<!DOCTYPE html>
             const audio = document.getElementById('my-audio');
             const playIcon = document.getElementById('play-icon');
             const pauseIcon = document.getElementById('pause-icon');
-
+            
+            // Audio Play/Pause Logic
             if (playButton && audio && playIcon && pauseIcon) {
                 playButton.addEventListener('click', () => {
                     if (audio.paused) {
@@ -305,4 +377,4 @@ t<!DOCTYPE html>
         });
     </script>
 </body>
-</html>
+            </html>
