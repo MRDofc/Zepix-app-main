@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="si">
 <head>
@@ -24,44 +25,19 @@
             overflow-x: hidden;
             position: relative;
         }
-
-        /* === SPACE BACKGROUND === */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 40, 200, 0.4), transparent 40%),
-                radial-gradient(circle at 80% 20%, rgba(40, 120, 200, 0.3), transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(100, 20, 180, 0.2), transparent 50%);
-            z-index: 0;
-            animation: nebulaPulse 20Новостиs ease-in-out infinite;
+        
+        /* === 1. FULL PAGE BACKGROUND VIDEO STYLES === */
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2; /* සියලුම අන්තර්ගතයන් පිටුපසට යවයි */
+            opacity: 0.7; 
+            filter: brightness(0.7) blur(1px); 
         }
-
-        @keyframes nebulaPulse {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
-        }
-
-        .stars {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                radial-gradient(1px 1px at 10% 20%, #fff, transparent),
-                radial-gradient(1px 1px at 30% 60%, #fff, transparent),
-                radial-gradient(2px 2px at 70% 30%, #fff, transparent),
-                radial-gradient(1px 1px at 90% 80%, #fff, transparent),
-                radial-gradient(1px 1px at 45% 10%, #fff, transparent),
-                radial-gradient(2px 2px at 55% 90%, #fff, transparent),
-                radial-gradient(1px 1px at 15% 50%, #fff, transparent),
-                radial-gradient(1px 1px at 85% 40%, #fff, transparent);
-            background-size: 200% 200%;
-            animation: twinkle 10s ease-in-out infinite, drift 60s linear infinite;
-            z-index: 0;
-        }
-
-        @keyframes twinkle { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
-        @keyframes drift { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
 
         body > * { position: relative; z-index: 1; }
 
@@ -99,7 +75,7 @@
             100% { box-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0, inset 0 0 5px #0f0; }
         }
 
-        /* === LOGO - NO ANIMATION LIGHT === */
+        /* === LOGO === */
         .logo {
             width: 85px;
             height: 85px;
@@ -107,7 +83,7 @@
             margin: 10px 0;
             border: 2px solid #0f0;
             overflow: hidden;
-            box-shadow: none; /* Animation light අයින් කළා */
+            box-shadow: none;
         }
 
         .logo img {
@@ -135,7 +111,7 @@
         .play-icon, .pause-icon { width: 16px; height: 16px; fill: #000; }
         .hidden { display: none; }
 
-        /* === LIVE PANEL === */
+        /* === LIVE PANEL (Buttons container) === */
         .live-panel {
             margin: 22px auto;
             width: 92%;
@@ -147,23 +123,31 @@
             background: rgba(10, 10, 30, 0.45);
             border: 1px solid rgba(0, 255, 0, 0.4);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
+            overflow: hidden; /* වීඩියෝව Panel එක ඇතුළේ තබා ගැනීමට */
         }
-
+        
+        /* ⚠️ Live Panel එකේ border animation ඉවත් කරන ලදී */
         .live-panel::before {
-            content: '';
-            position: absolute;
-            top: -6px; left: -6px; right: -6px; bottom: -6px;
-            background: conic-gradient(#ff00ff, #00ffff, #ffff00, #ff00ff, #00ff00, #ff00ff);
-            border-radius: 22px;
-            z-index: -1;
-            animation: rotateBorder 4s linear infinite;
-            filter: blur(3px);
+            content: none;
         }
 
-        @keyframes rotateBorder {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* === 2. LIVE PANEL BACKGROUND VIDEO STYLES === */
+        .panel-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 16px;
+            z-index: -1; /* Buttons වලට පිටුපසින් තබයි */
+            opacity: 0.3; 
+        }
+        
+        .panel-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         /* === COMPACT & UNIFORM BUTTONS === */
@@ -172,9 +156,15 @@
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             width: 100%;
+            position: relative; /* වීඩියෝවට උඩින් තැබීමට */
+            z-index: 2;
         }
 
         .button {
+            /* Button පසුබිම තවත් අඳුරු කරන්න, වීඩියෝව මතට පැහැදිලි වීමට */
+            background: rgba(20, 20, 40, 0.85); 
+            border: 1.5px solid rgba(0, 255, 0, 0.6);
+            /* ... අනෙකුත් styles එලෙසම ඇත ... */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -185,8 +175,6 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             color: #fff;
-            background: rgba(20, 20, 40, 0.65);
-            border: 1.5px solid rgba(0, 255, 0, 0.6);
             border-radius: 10px;
             cursor: pointer;
             text-decoration: none;
@@ -195,7 +183,7 @@
             overflow: hidden;
             transition: all 0.35s ease;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-            min-height: 48px; /* හැම එකම height */
+            min-height: 48px;
         }
 
         .button span {
@@ -227,7 +215,7 @@
             font-size: 0.82em;
             padding: 12px 8px;
             min-height: 50px;
-            background: rgba(0, 40, 60, 0.75);
+            background: rgba(0, 40, 60, 0.85); /* පසුබිම අඳුරු කළා */
             border: 2px solid #00ffff;
         }
 
@@ -247,7 +235,7 @@
             width: 100%;
             z-index: 10;
         }
-
+        /* ... Footer styles ... */
         .icon-button {
             padding: 8px 12px;
             font-family: 'Exo 2', sans-serif;
@@ -295,7 +283,10 @@
 </head>
 <body>
 
-    <div class="stars"></div>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="https://files.catbox.moe/y7djo5.mp4" type="video/mp4">
+        ඔබේ බ්‍රවුසරය වීඩියෝ ටැග් එකට සහය නොදක්වයි.
+    </video>
 
     <div class="header">
         <h1 class="site-name">Zepix</h1>
@@ -315,8 +306,14 @@
         </button>
     </div>
     
-    <!-- LIVE PANEL -->
     <div class="live-panel">
+        
+        <div class="panel-video">
+            <video autoplay muted loop playsinline>
+                <source src="https://files.catbox.moe/c2deyq.mp4" type="video/mp4">
+            </video>
+        </div>
+        
         <div class="buttons">
             <a href="https://aviator-ai-bot-uqq9.vercel.app/" class="button"><span>AVIATOR AI BOT</span></a>
             <a href="https://888aviator.vercel.app/" class="button"><span>888 AVIATOR</span></a>
@@ -327,7 +324,6 @@
             <a href="https://aviator-annlyse.vercel.app/" class="button"><span>TEST ANALYZE</span></a>
             <a href="https://aviator-time-table.vercel.app/" class="button"><span>TIME TABLE</span></a>
             
-            <!-- SPEED BUTTON -->
             <a href="https://speed-meeter.vercel.app/" class="button" id="speed-btn">
                 <span>Zepix AI PING speed</span>
             </a>
@@ -355,6 +351,20 @@
             const audio = document.getElementById('my-audio');
             const playIcon = document.getElementById('play-icon');
             const pauseIcon = document.getElementById('pause-icon');
+            
+            // Full Page BG Video
+            const bgVideo = document.getElementById('bg-video');
+            // Panel BG Video (assuming it's the first video inside panel-video)
+            const panelVideo = document.querySelector('.panel-video video');
+
+            // Try to play all videos for better compatibility
+            if(bgVideo) {
+                bgVideo.play().catch(e => console.log("Full Page BG video autoplay blocked."));
+            }
+             if(panelVideo) {
+                panelVideo.play().catch(e => console.log("Panel BG video autoplay blocked."));
+            }
+
 
             playButton.addEventListener('click', () => {
                 if (audio.paused) {
@@ -371,4 +381,4 @@
         });
     </script>
 </body>
-                                                                                         </html>
+    </html>
