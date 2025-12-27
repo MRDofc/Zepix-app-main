@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="si">
 <head>
@@ -115,26 +116,47 @@
 
         .audio-duration { font-size: 0.8em; color: #00ffff; z-index: 2; }
 
-        /* === MAIN PANEL === */
+        /* === MAIN PANEL (UPDATED) === */
         .live-panel {
             margin: 20px auto;
             width: 92%;
             max-width: 440px;
             padding: 16px;
             border-radius: 16px;
-            background: rgba(10, 10, 30, 0.45);
-            border: 1px solid rgba(0, 255, 0, 0.4);
+            background: #050510; /* Solid background - විනිවිද පෙනීම ඉවත් කළා */
+            border: 1px solid rgba(0, 255, 0, 0.6);
             position: relative;
             overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
         }
 
-        .panel-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
-        .panel-video video { width: 100%; height: 100%; object-fit: cover; }
+        .panel-video { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: -1; 
+            opacity: 1; /* වීඩියෝව හොඳින් පෙනීමට opacity 1 කළා */
+        }
 
-        .buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .panel-video video { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+
+        .buttons { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+            position: relative;
+            z-index: 2; /* බොත්තම් වීඩියෝවට උඩින් පෙනීමට */
+        }
 
         .button {
-            background: rgba(20, 20, 40, 0.85); 
+            background: rgba(0, 0, 0, 0.7); /* බොත්තම් වල පසුබිම පමණක් මදක් විනිවිද පෙනේ */
             border: 1.5px solid rgba(0, 255, 0, 0.6);
             display: flex;
             align-items: center;
@@ -157,13 +179,13 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center; /* මැදට ගෙන ඒමට */
+            align-items: center;
             gap: 8px;
             margin-top: 5px;
         }
 
         .extra-small-button {
-            width: 50% !important; /* දිග 50% ක් දක්වා අඩු කළා */
+            width: 50% !important;
             padding: 5px;
             min-height: 28px;
             font-size: 0.6em;
@@ -289,4 +311,3 @@
     </script>
 </body>
 </html>
-
