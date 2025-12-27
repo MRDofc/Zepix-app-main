@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zepix</title>
+    <title>Zepix Official</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -25,26 +26,16 @@
             position: relative;
         }
         
-        /* === 1. FULL PAGE BACKGROUND VIDEO STYLES - FILTERS ADJUSTED === */
         #bg-video {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
             z-index: -2;
-            opacity: 0.8; /* opacity 0.7 සිට 0.8 දක්වා වැඩි කළා */
-            filter: brightness(0.8) blur(0.5px); /* blur 1px සිට 0.5px දක්වා අඩු කළා */
+            opacity: 0.8;
+            filter: brightness(0.7) blur(0.5px);
         }
 
-        body > * { position: relative; z-index: 1; }
-
-        /* === Z E P I X TITLE === */
-        .header {
-            text-align: center;
-            margin: 15px 0 10px;
-        }
+        .header { text-align: center; margin: 15px 0 10px; }
 
         .site-name {
             font-family: 'Orbitron', sans-serif;
@@ -53,110 +44,95 @@
             padding: 14px 28px;
             border-radius: 16px;
             display: inline-block;
-            position: relative;
-            animation: glow 2s ease-in-out infinite alternate, neon-border 1.5s linear infinite;
-            border: 2px solid #0f0;
-            background: linear-gradient(45deg, #ff00ff, #00ffff) text;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            border: 2px solid #0ff;
+            box-shadow: 0 0 10px #0ff;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073; }
-            to { text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 70px #ff4da6; }
-        }
-
-        @keyframes neon-border {
-            0%   { box-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0, inset 0 0 5px #0f0; }
-            50%  { box-shadow: 0 0 20px #0f0, 0 0 30px #0f0, 0 0 40px #0f0, inset 0 0 10px #0f0; }
-            100% { box-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0, inset 0 0 5px #0f0; }
-        }
-
-        /* === LOGO === */
         .logo {
-            width: 85px;
-            height: 85px;
+            width: 85px; height: 85px;
             border-radius: 50%;
             margin: 10px 0;
             border: 2px solid #0f0;
             overflow: hidden;
-            box-shadow: none;
+        }
+        .logo img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* === VOICE MESSAGE === */
+        #play-button-container { 
+            margin: 15px auto;
+            width: 90%;
+            max-width: 350px;
         }
 
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
+        .voice-message {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(15px);
+            padding: 8px 15px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            --progress: 0%;
         }
 
-        /* Play Button */
-        #play-button-container { margin: 15px 0; }
+        .voice-message::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; height: 100%;
+            width: var(--progress);
+            background: rgba(0, 255, 255, 0.15);
+            z-index: 0;
+        }
+
         #play-button {
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            width: 44px; height: 44px;
+            background: #00ffff;
+            width: 38px; height: 38px;
             border-radius: 50%;
             border: none;
             cursor: pointer;
-            box-shadow: 0 0 12px #00ffff, 0 0 20px #ff00ff;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 2;
+            box-shadow: 0 0 12px #00ffff;
         }
-        #play-button:hover { transform: scale(1.12); }
-        .play-icon, .pause-icon { width: 16px; height: 16px; fill: #000; }
-        .hidden { display: none; }
 
-        /* === LIVE PANEL (Buttons container) === */
+        .play-icon, .pause-icon { width: 16px; height: 16px; fill: #000; }
+        .hidden { display: none !important; }
+
+        .wave-container { flex: 1; display: flex; align-items: center; gap: 3px; height: 20px; z-index: 2; }
+        .wave-bar { width: 3px; background: rgba(0, 255, 255, 0.4); border-radius: 3px; height: 6px; }
+        .wave-container.playing .wave-bar { background: #00ffff; animation: wave 1.2s ease-in-out infinite; }
+
+        @keyframes wave { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.2); } }
+
+        .audio-duration { font-size: 0.8em; color: #00ffff; z-index: 2; }
+
+        /* === MAIN PANEL === */
         .live-panel {
-            margin: 22px auto;
+            margin: 20px auto;
             width: 92%;
             max-width: 440px;
             padding: 16px;
             border-radius: 16px;
-            position: relative;
-            backdrop-filter: blur(12px);
             background: rgba(10, 10, 30, 0.45);
             border: 1px solid rgba(0, 255, 0, 0.4);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-        }
-        
-        .live-panel::before {
-            content: none;
-        }
-
-        /* === 2. LIVE PANEL BACKGROUND VIDEO STYLES - FILTERS ADJUSTED === */
-        .panel-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            border-radius: 16px;
-            z-index: -1;
-            opacity: 0.4; /* opacity 0.3 සිට 0.4 දක්වා වැඩි කළා */
-        }
-        
-        .panel-video video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* === COMPACT & UNIFORM BUTTONS === */
-        .buttons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            width: 100%;
             position: relative;
-            z-index: 2;
+            overflow: hidden;
         }
+
+        .panel-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
+        .panel-video video { width: 100%; height: 100%; object-fit: cover; }
+
+        .buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
         .button {
             background: rgba(20, 20, 40, 0.85); 
@@ -166,113 +142,46 @@
             justify-content: center;
             padding: 11px 8px;
             font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
             font-size: 0.78em;
-            letter-spacing: 1px;
-            text-transform: uppercase;
             color: #fff;
             border-radius: 10px;
-            cursor: pointer;
             text-decoration: none;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.35s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-            min-height: 48px;
+            transition: 0.35s;
         }
 
-        .button span {
-            position: relative;
-            z-index: 2;
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+        .button span { background: linear-gradient(45deg, #00ffff, #ff00ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
 
-        .button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 18px rgba(0, 255, 0, 0.35);
-            border-color: #0f0;
-        }
+        #speed-btn { grid-column: 1 / span 2; border: 2px solid #00ffff; }
 
-        .button:hover span {
-            filter: drop-shadow(0 0 6px #0f0);
-        }
-
-        .button:active {
-            transform: translateY(-1px);
-        }
-
-        /* Speed Button - Full Width, Same Style */
-        #speed-btn {
-            grid-column: 1 / span 2;
-            font-size: 0.82em;
-            padding: 12px 8px;
-            min-height: 50px;
-            background: rgba(0, 40, 60, 0.85);
-            border: 2px solid #00ffff;
-        }
-
-        #speed-btn span {
-            background: linear-gradient(45deg, #00ffff, #00ffcc);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        /* Footer */
-        .footer {
-            position: fixed;
-            bottom: 12px;
-            display: flex;
-            gap: 14px;
-            justify-content: center;
+        /* === SUPER SMALL VERTICAL BUTTONS === */
+        .extra-buttons-vertical {
             width: 100%;
-            z-index: 10;
-        }
-        .icon-button {
-            padding: 8px 12px;
-            font-family: 'Exo 2', sans-serif;
-            font-weight: 600;
-            font-size: 0.8em;
-            border-radius: 50px;
-            cursor: pointer;
             display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #fff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+            flex-direction: column;
+            align-items: center; /* මැදට ගෙන ඒමට */
+            gap: 8px;
+            margin-top: 5px;
         }
 
-        .icon-button:hover {
-            transform: translateY(-3px) scale(1.08);
+        .extra-small-button {
+            width: 50% !important; /* දිග 50% ක් දක්වා අඩු කළා */
+            padding: 5px;
+            min-height: 28px;
+            font-size: 0.6em;
+            border-radius: 5px;
+            font-weight: 700;
         }
 
-        #whatsapp-btn { background: linear-gradient(45deg, #25D366, #00ff00); }
-        #youtube-btn { background: linear-gradient(45deg, #FF0000, #ff6666); }
+        /* FOOTER */
+        .footer { margin: 20px 0; display: flex; gap: 14px; }
+        .icon-button { padding: 8px 12px; border-radius: 50px; text-decoration: none; color: #fff; font-size: 0.8em; display: flex; align-items: center; gap: 6px; }
+        #whatsapp-btn { background: #25D366; }
+        #youtube-btn { background: #FF0000; }
+        .icon-img { width: 18px; }
 
-        .icon-img { width: 18px; height: 18px; }
-
-        /* Mobile */
         @media (max-width: 480px) {
-            .site-name { font-size: 2.3em; padding: 10px 18px; letter-spacing: 2px; }
-            .logo { width: 70px; height: 70px; }
-            .live-panel { padding: 14px; }
-            .buttons { grid-template-columns: 1fr; gap: 9px; }
-            .button { font-size: 0.82em; padding: 10px 8px; min-height: 46px; }
-            #speed-btn { font-size: 0.85em; padding: 11px 8px; min-height: 48px; }
-            #play-button { width: 40px; height: 40px; }
-            .icon-button { font-size: 0.75em; padding: 7px 10px; gap: 5px; }
-            .icon-img { width: 16px; height: 16px; }
-            .footer { bottom: 8px; gap: 10px; }
-        }
-
-        @media (max-width: 360px) {
-            .site-name { font-size: 2em; }
-            .button { font-size: 0.78em; }
+            .site-name { font-size: 2.3em; }
+            .buttons { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -280,61 +189,50 @@
 
     <video autoplay muted loop playsinline id="bg-video">
         <source src="https://files.catbox.moe/owd9wk.mp4" type="video/mp4">
-        ඔබේ බ්‍රවුසරය වීඩියෝ ටැග් එකට සහය නොදක්වයි.
     </video>
 
     <div class="header">
         <h1 class="site-name">Zepix</h1>
     </div>
+    
     <div class="logo">
         <img src="https://files.catbox.moe/h7g8sj.jpg" alt="Logo">
     </div>
 
     <div id="play-button-container">
-        <button id="play-button" aria-label="Play/Pause audio">
-            <svg id="play-icon" class="play-icon" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-            </svg>
-            <svg id="pause-icon" class="pause-icon hidden" viewBox="0 0 24 24">
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-            </svg>
-        </button>
+        <div class="voice-message" id="voice-message">
+            <button id="play-button">
+                <svg id="play-icon" class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="pause-icon" class="pause-icon hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <div class="wave-container" id="wave-container">
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            </div>
+            <div class="audio-duration" id="audio-duration">0:00</div>
+        </div>
     </div>
     
     <div class="live-panel">
-        
         <div class="panel-video">
-            <video autoplay muted loop playsinline>
-                <source src="https://files.catbox.moe/9o5vf0.mp4" type="video/mp4">
-            </video>
+            <video autoplay muted loop playsinline><source src="https://files.catbox.moe/9o5vf0.mp4" type="video/mp4"></video>
         </div>
-        
         <div class="buttons">
             <a href="https://aviator-ai-bot-uqq9.vercel.app/" class="button"><span>AVIATOR AI BOT</span></a>
             <a href="https://888aviator.vercel.app/" class="button"><span>888 AVIATOR</span></a>
-            
-            <a href="https://zepix-high-odds-lanka.lovable.app/" class="button"><span>AVIATOR 𝟏</span></a>
+            <a href="https://zepix-high-odds-lanka.lovable.app/" class="button"><span>AVIATOR 1</span></a>
             <a href="https://aviator-2.vercel.app/" class="button"><span>උපදෙස්</span></a>
-            
             <a href="https://aviator-annlyse.vercel.app/" class="button"><span>උපදෙස් (note)</span></a>
             <a href="https://aviator-time-table.vercel.app/" class="button"><span>TIME TABLE</span></a>
-            
-            <a href="https://speed-meeter.vercel.app/" class="button" id="speed-btn">
-                <span>Zepix AI PING speed</span>
-            </a>
+            <a href="https://speed-meeter.vercel.app/" class="button" id="speed-btn"><span>Zepix AI PING speed</span></a>
         </div>
     </div>
-<div id="aviator pro button">
-    <a href="https://aviator-exact-times.lovable.app" class="button" id="aviator pro button">
-        <span>AVIATOR 2</span>
-    </a>
-</div>
-    <br>
-    <div id="truewin button">
-    <a href="https://zepix-win-navigator.lovable.app/auth" class="button" id="aviator pro button">
-        <span>true win</span>
-    </a>
+
+    <div class="extra-buttons-vertical">
+        <a href="https://aviator-exact-times.lovable.app" class="button extra-small-button" style="border-color: #0ff;"><span>AVIATOR 2</span></a>
+        <a href="https://zepix-win-navigator.lovable.app/auth" class="button extra-small-button" style="border-color: #ff00ff;"><span>TRUE WIN</span></a>
     </div>
+
     <div class="footer">
         <a href="https://wa.me/94729119643" class="icon-button" id="whatsapp-btn">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon-img"> WhatsApp
@@ -344,7 +242,7 @@
         </a>
     </div>
 
-    <audio id="my-audio" src="https://files.catbox.moe/7gyrjf.mp3" loop></audio>
+    <audio id="my-audio" src="https://files.catbox.moe/7gyrjf.mp3"></audio>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -352,31 +250,329 @@
             const audio = document.getElementById('my-audio');
             const playIcon = document.getElementById('play-icon');
             const pauseIcon = document.getElementById('pause-icon');
-            
-            // Full Page BG Video
-            const bgVideo = document.getElementById('bg-video');
-            // Panel BG Video (assuming it's the first video inside panel-video)
-            const panelVideo = document.querySelector('.panel-video video');
+            const waveContainer = document.getElementById('wave-container');
+            const voiceMessage = document.getElementById('voice-message');
+            const durationDisplay = document.getElementById('audio-duration');
 
-            // Try to play all videos for better compatibility
-            if(bgVideo) {
-                bgVideo.play().catch(e => console.log("Full Page BG video autoplay blocked."));
-            }
-             if(panelVideo) {
-                panelVideo.play().catch(e => console.log("Panel BG video autoplay blocked."));
-            }
+            audio.addEventListener('timeupdate', () => {
+                const minutes = Math.floor(audio.currentTime / 60);
+                const seconds = Math.floor(audio.currentTime % 60);
+                durationDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                if (audio.duration) {
+                    const progress = (audio.currentTime / audio.duration) * 100;
+                    voiceMessage.style.setProperty('--progress', `${progress}%`);
+                }
+            });
 
+            audio.addEventListener('ended', () => {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                waveContainer.classList.remove('playing');
+                voiceMessage.style.setProperty('--progress', '0%');
+                durationDisplay.textContent = "0:00";
+            });
 
             playButton.addEventListener('click', () => {
                 if (audio.paused) {
-                    audio.play().then(() => {
-                        playIcon.classList.add('hidden');
-                        pauseIcon.classList.remove('hidden');
-                    });
+                    audio.play();
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                    waveContainer.classList.add('playing');
                 } else {
                     audio.pause();
                     playIcon.classList.remove('hidden');
                     pauseIcon.classList.add('hidden');
+                    waveContainer.classList.remove('playing');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zepix Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Exo+2:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: white;
+            font-family: 'Exo 2', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        #bg-video {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.8;
+            filter: brightness(0.7) blur(0.5px);
+        }
+
+        .header { text-align: center; margin: 15px 0 10px; }
+
+        .site-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.2em;
+            font-weight: 900;
+            padding: 14px 28px;
+            border-radius: 16px;
+            display: inline-block;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            border: 2px solid #0ff;
+            box-shadow: 0 0 10px #0ff;
+        }
+
+        .logo {
+            width: 85px; height: 85px;
+            border-radius: 50%;
+            margin: 10px 0;
+            border: 2px solid #0f0;
+            overflow: hidden;
+        }
+        .logo img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* === VOICE MESSAGE === */
+        #play-button-container { 
+            margin: 15px auto;
+            width: 90%;
+            max-width: 350px;
+        }
+
+        .voice-message {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(15px);
+            padding: 8px 15px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            --progress: 0%;
+        }
+
+        .voice-message::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; height: 100%;
+            width: var(--progress);
+            background: rgba(0, 255, 255, 0.15);
+            z-index: 0;
+        }
+
+        #play-button {
+            background: #00ffff;
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            box-shadow: 0 0 12px #00ffff;
+        }
+
+        .play-icon, .pause-icon { width: 16px; height: 16px; fill: #000; }
+        .hidden { display: none !important; }
+
+        .wave-container { flex: 1; display: flex; align-items: center; gap: 3px; height: 20px; z-index: 2; }
+        .wave-bar { width: 3px; background: rgba(0, 255, 255, 0.4); border-radius: 3px; height: 6px; }
+        .wave-container.playing .wave-bar { background: #00ffff; animation: wave 1.2s ease-in-out infinite; }
+
+        @keyframes wave { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(2.2); } }
+
+        .audio-duration { font-size: 0.8em; color: #00ffff; z-index: 2; }
+
+        /* === MAIN PANEL === */
+        .live-panel {
+            margin: 20px auto;
+            width: 92%;
+            max-width: 440px;
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(10, 10, 30, 0.45);
+            border: 1px solid rgba(0, 255, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
+        .panel-video video { width: 100%; height: 100%; object-fit: cover; }
+
+        .buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .button {
+            background: rgba(20, 20, 40, 0.85); 
+            border: 1.5px solid rgba(0, 255, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.78em;
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: 0.35s;
+        }
+
+        .button span { background: linear-gradient(45deg, #00ffff, #ff00ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        #speed-btn { grid-column: 1 / span 2; border: 2px solid #00ffff; }
+
+        /* === SUPER SMALL VERTICAL BUTTONS === */
+        .extra-buttons-vertical {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* මැදට ගෙන ඒමට */
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .extra-small-button {
+            width: 50% !important; /* දිග 50% ක් දක්වා අඩු කළා */
+            padding: 5px;
+            min-height: 28px;
+            font-size: 0.6em;
+            border-radius: 5px;
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+        .footer { margin: 20px 0; display: flex; gap: 14px; }
+        .icon-button { padding: 8px 12px; border-radius: 50px; text-decoration: none; color: #fff; font-size: 0.8em; display: flex; align-items: center; gap: 6px; }
+        #whatsapp-btn { background: #25D366; }
+        #youtube-btn { background: #FF0000; }
+        .icon-img { width: 18px; }
+
+        @media (max-width: 480px) {
+            .site-name { font-size: 2.3em; }
+            .buttons { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="https://files.catbox.moe/owd9wk.mp4" type="video/mp4">
+    </video>
+
+    <div class="header">
+        <h1 class="site-name">Zepix</h1>
+    </div>
+    
+    <div class="logo">
+        <img src="https://files.catbox.moe/h7g8sj.jpg" alt="Logo">
+    </div>
+
+    <div id="play-button-container">
+        <div class="voice-message" id="voice-message">
+            <button id="play-button">
+                <svg id="play-icon" class="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="pause-icon" class="pause-icon hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <div class="wave-container" id="wave-container">
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+            </div>
+            <div class="audio-duration" id="audio-duration">0:00</div>
+        </div>
+    </div>
+    
+    <div class="live-panel">
+        <div class="panel-video">
+            <video autoplay muted loop playsinline><source src="https://files.catbox.moe/9o5vf0.mp4" type="video/mp4"></video>
+        </div>
+        <div class="buttons">
+            <a href="https://aviator-ai-bot-uqq9.vercel.app/" class="button"><span>AVIATOR AI BOT</span></a>
+            <a href="https://888aviator.vercel.app/" class="button"><span>888 AVIATOR</span></a>
+            <a href="https://zepix-high-odds-lanka.lovable.app/" class="button"><span>AVIATOR 1</span></a>
+            <a href="https://aviator-2.vercel.app/" class="button"><span>උපදෙස්</span></a>
+            <a href="https://aviator-annlyse.vercel.app/" class="button"><span>උපදෙස් (note)</span></a>
+            <a href="https://aviator-time-table.vercel.app/" class="button"><span>TIME TABLE</span></a>
+            <a href="https://speed-meeter.vercel.app/" class="button" id="speed-btn"><span>Zepix AI PING speed</span></a>
+        </div>
+    </div>
+
+    <div class="extra-buttons-vertical">
+        <a href="https://aviator-exact-times.lovable.app" class="button extra-small-button" style="border-color: #0ff;"><span>AVIATOR 2</span></a>
+        <a href="https://zepix-win-navigator.lovable.app/auth" class="button extra-small-button" style="border-color: #ff00ff;"><span>TRUE WIN</span></a>
+    </div>
+
+    <div class="footer">
+        <a href="https://wa.me/94729119643" class="icon-button" id="whatsapp-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon-img"> WhatsApp
+        </a>
+        <a href="https://www.youtube.com/@zepixlk" class="icon-button" id="youtube-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube" class="icon-img"> YouTube
+        </a>
+    </div>
+
+    <audio id="my-audio" src="https://files.catbox.moe/7gyrjf.mp3"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const playButton = document.getElementById('play-button');
+            const audio = document.getElementById('my-audio');
+            const playIcon = document.getElementById('play-icon');
+            const pauseIcon = document.getElementById('pause-icon');
+            const waveContainer = document.getElementById('wave-container');
+            const voiceMessage = document.getElementById('voice-message');
+            const durationDisplay = document.getElementById('audio-duration');
+
+            audio.addEventListener('timeupdate', () => {
+                const minutes = Math.floor(audio.currentTime / 60);
+                const seconds = Math.floor(audio.currentTime % 60);
+                durationDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                if (audio.duration) {
+                    const progress = (audio.currentTime / audio.duration) * 100;
+                    voiceMessage.style.setProperty('--progress', `${progress}%`);
+                }
+            });
+
+            audio.addEventListener('ended', () => {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                waveContainer.classList.remove('playing');
+                voiceMessage.style.setProperty('--progress', '0%');
+                durationDisplay.textContent = "0:00";
+            });
+
+            playButton.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                    waveContainer.classList.add('playing');
+                } else {
+                    audio.pause();
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                    waveContainer.classList.remove('playing');
                 }
             });
         });
